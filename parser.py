@@ -16,7 +16,7 @@ class ChainData:
     RPC_PORT = RPC_NODE["port"]
 
     def __init__(self, start_block, end_block):
-        self.addresses = {}
+        self.addresses = set()
         self.start_block = start_block
         self.end_block = end_block
         self.rpc_conn = AuthServiceProxy("http://%s:%s@%s:%s" % (
@@ -41,13 +41,15 @@ class ChainData:
 
     def getblock_out_addresses(self, block):
         txs, blockhash = self._get_blocktransactions(block)
+        count = 0
         for tx in txs:
             for iout in tx['vout']:
                 if iout.get("scriptPubKey") and iout.get("scriptPubKey").get("addresses"):
                     addresses = iout["scriptPubKey"]["addresses"]
                     for ad in addresses:
-                        self.addresses[ad] = 1
-                        print("block {}, address {}".format(block, ad))
+                        count += 1
+                        self.addresses.add(ad)
+                        print("block {}, count {}, address {}".format(block, count, ad))
 
 
 if __name__ == "__main__":
@@ -61,5 +63,5 @@ if __name__ == "__main__":
     for i in range(start_block, end_block + 1):
         cdata.getblock_out_addresses(i)
     with open(output, "a+") as fl:
-        for key in cdata.addresses.keys():
+        for key in cdata.addresses:
             fl.write("{}\r\n".format(key))
