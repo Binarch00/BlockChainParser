@@ -1,11 +1,5 @@
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 
-CHAIN = {
-    "name": "btc",
-    "confirms": 3,
-    "start_block": 10,  # set this value to a recent block after chain sync and prune is completed.
-}
-
 RPC_NODE = {
     "user": "OIDSAHdiasdiosudhasdjoasidjoaiqweoirof",
     "password": "sldkfhsooiAHOIDoIHJSOAKlsdjAOSIDao",
@@ -20,9 +14,6 @@ class ChainData:
     RPC_PASSWORD = RPC_NODE["password"]
     RPC_SERVER = RPC_NODE["server"]
     RPC_PORT = RPC_NODE["port"]
-    MIN_BLOCK = CHAIN["start_block"]
-    MIN_CONFIRMS = CHAIN["confirms"]
-    COIN = CHAIN["name"]
 
     def __init__(self, start_block, end_block):
         self.addresses = {}
