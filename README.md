@@ -5,5 +5,5 @@ Blockchain RPC block parser
 
 ```bash
 parser.py <start-block> <end-block> <num of parse process>
-Use same input to allow continue paused or interrupted blocks
 ```
+Use same input to allow continue paused or interrupted blocks
